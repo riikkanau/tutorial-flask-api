@@ -63,7 +63,7 @@ class ConnectionManager(object):
                 cursor.execute(f"EXEC {procedure}")
 
             result = cursor.fetchone()
-
+ 
             if result:
                 result = json.loads(result[0])                           
             else:
