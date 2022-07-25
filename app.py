@@ -1,9 +1,11 @@
+from sqlite3 import IntegrityError
 import sys
 import os
 import json
 import pyodbc
 import socket
 from flask import Flask
+from flask import request
 from flask_restful import reqparse, abort, Api, Resource
 from threading import Lock
 from tenacity import *
@@ -11,6 +13,19 @@ from opencensus.ext.azure.trace_exporter import AzureExporter
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.trace.samplers import ProbabilitySampler
 import logging
+
+
+# ---
+loggeri= logging.getLogger(__name__)
+loggeri.setLevel(logging.DEBUG) #logging.WARNING
+formater = logging.Formatter(
+    '%(asctime)s:%(levelname)s:%(name)s:%(message)s')
+file_handler = logging.FileHandler('lokikirja.log')
+file_handler.setFormatter(formater)
+loggeri.addHandler(file_handler)
+# logger.info('Esimerkki')
+# ---
+
 
 # Initialize Flask
 app = Flask(__name__)
@@ -77,7 +92,7 @@ class ConnectionManager(object):
                 # then connection must be removed
                 # as it will be in an invalid state
                 self.__removeConnection() 
-                raise                        
+                raise                       
         finally:
             cursor.close()
                          
@@ -100,10 +115,33 @@ class Customer(Queryable):
         return result, 200
     
     def put(self):
-        args = parser.parse_args()
-        # customer = json.loads(args['customer'])
+        # args = parser.parse_args()
+        
+        loggeri.info('---')
+        # loggeri.info(request.json)
+        loggeri.info(json.dumps(request.json))
+        # print(args)
+        # print(type(args))
+        
+        # customer = json.loads(json.dumps(request.json))
+        customer = request.json
+        loggeri.info(request.json)
+        print(customer)
+        
+        
+        
+        # customer = {}
+        # customer['CustomerName'] = 'John Doe'
+        # customer['PhoneNumber'] = '123'
+        # customer['FaxNumber'] = '1234'
+        # customer['WebsiteURL'] = 'www.seonmoro.fi'
+        # customer['Delivery'] = {}
+        # customer['AddressLine1'] ='Tietie 1'
+        # customer['PostalCode'] ='12345'
+        # customer['Delivery'] = {customer['AddressLine1'], customer['PostalCode']}
+        
         # Testing with valid json - everything works
-        customer = {'CustomerName': 'John Doe', 'PhoneNumber': '123-234-5678', 'FaxNumber': '123-234-5678', 'WebsiteURL': 'http://www.something.com', 'Delivery': {'AddressLine1': 'One Microsoft Way', 'PostalCode': 98052}}
+        # customer = {'CustomerName': 'John Doe', 'PhoneNumber': '123-234-5678', 'FaxNumber': '123-234-5678', 'WebsiteURL': 'http://www.something.com', 'Delivery': {'AddressLine1': 'One Microsoft Way', 'PostalCode': 98052}}
         result = self.executeQueryJson("put", customer)
         return result, 201
 
@@ -130,4 +168,7 @@ class Customers(Queryable):
 api.add_resource(Customer, '/customer', '/customer/<customer_id>')
 api.add_resource(Customers, '/customers')
 
-app.run()
+
+# remember to move before moving to production
+if __name__ == '__main__':
+    app.run(debug = True)
