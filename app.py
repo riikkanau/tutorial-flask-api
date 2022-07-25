@@ -114,40 +114,17 @@ class Customer(Queryable):
         result = self.executeQueryJson("get", customer)   
         return result, 200
     
-    def put(self):
-        # args = parser.parse_args()
-        
-        loggeri.info('---')
-        # loggeri.info(request.json)
-        loggeri.info(json.dumps(request.json))
-        # print(args)
-        # print(type(args))
-        
-        # customer = json.loads(json.dumps(request.json))
+    def put(self):  
+        loggeri.info('-- put --')
+        loggeri.info(json.dumps(request.json)) # the request is logged in json format
         customer = request.json
-        loggeri.info(request.json)
-        print(customer)
-        
-        
-        
-        # customer = {}
-        # customer['CustomerName'] = 'John Doe'
-        # customer['PhoneNumber'] = '123'
-        # customer['FaxNumber'] = '1234'
-        # customer['WebsiteURL'] = 'www.seonmoro.fi'
-        # customer['Delivery'] = {}
-        # customer['AddressLine1'] ='Tietie 1'
-        # customer['PostalCode'] ='12345'
-        # customer['Delivery'] = {customer['AddressLine1'], customer['PostalCode']}
-        
-        # Testing with valid json - everything works
-        # customer = {'CustomerName': 'John Doe', 'PhoneNumber': '123-234-5678', 'FaxNumber': '123-234-5678', 'WebsiteURL': 'http://www.something.com', 'Delivery': {'AddressLine1': 'One Microsoft Way', 'PostalCode': 98052}}
         result = self.executeQueryJson("put", customer)
         return result, 201
 
     def patch(self, customer_id):
-        args = parser.parse_args()
-        customer = json.loads(args['customer'])
+        loggeri.info('-- patch --')
+        loggeri.info(json.dumps(request.json)) # the request is logged in json format
+        customer = request.json
         customer["CustomerID"] = customer_id        
         result = self.executeQueryJson("patch", customer)
         return result, 202
