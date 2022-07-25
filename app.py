@@ -101,7 +101,9 @@ class Customer(Queryable):
     
     def put(self):
         args = parser.parse_args()
-        customer = json.loads(args['customer'])
+        # customer = json.loads(args['customer'])
+        # Testing with valid json - everything works
+        customer = {'CustomerName': 'John Doe', 'PhoneNumber': '123-234-5678', 'FaxNumber': '123-234-5678', 'WebsiteURL': 'http://www.something.com', 'Delivery': {'AddressLine1': 'One Microsoft Way', 'PostalCode': 98052}}
         result = self.executeQueryJson("put", customer)
         return result, 201
 
