@@ -1,4 +1,3 @@
-from sqlite3 import IntegrityError
 import sys
 import os
 import json
@@ -15,16 +14,15 @@ from opencensus.trace.samplers import ProbabilitySampler
 import logging
 
 
-# ---
-loggeri= logging.getLogger(__name__)
-loggeri.setLevel(logging.DEBUG) #logging.WARNING
-formater = logging.Formatter(
-    '%(asctime)s:%(levelname)s:%(name)s:%(message)s')
-file_handler = logging.FileHandler('lokikirja.log')
-file_handler.setFormatter(formater)
-loggeri.addHandler(file_handler)
-# logger.info('Esimerkki')
-# ---
+# # ---
+# loggeri= logging.getLogger(__name__)
+# loggeri.setLevel(logging.DEBUG) #logging.WARNING
+# formater = logging.Formatter(
+#     '%(asctime)s:%(levelname)s:%(name)s:%(message)s')
+# file_handler = logging.FileHandler('lokikirja.log')
+# file_handler.setFormatter(formater)
+# loggeri.addHandler(file_handler)
+# # ---
 
 
 # Initialize Flask
@@ -115,15 +113,15 @@ class Customer(Queryable):
         return result, 200
     
     def put(self):  
-        loggeri.info('-- put --')
-        loggeri.info(json.dumps(request.json)) # the request is logged in json format
+        # loggeri.info('-- put --')
+        # loggeri.info(json.dumps(request.json)) # the request is logged in json format
         customer = request.json
         result = self.executeQueryJson("put", customer)
         return result, 201
 
     def patch(self, customer_id):
-        loggeri.info('-- patch --')
-        loggeri.info(json.dumps(request.json)) # the request is logged in json format
+        # loggeri.info('-- patch --')
+        # loggeri.info(json.dumps(request.json)) # the request is logged in json format
         customer = request.json
         customer["CustomerID"] = customer_id        
         result = self.executeQueryJson("patch", customer)
@@ -147,5 +145,5 @@ api.add_resource(Customers, '/customers')
 
 
 # remember to move before moving to production
-if __name__ == '__main__':
-    app.run(debug = True)
+# if __name__ == '__main__':
+#     app.run(debug = True)
