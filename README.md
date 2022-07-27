@@ -1,5 +1,5 @@
 # tutorial-flask-api
-Practising API creation by following tutorial at: https://github.com/Azure-Samples/azure-sql-db-python-rest-api
+Practising API creation by following tutorial at: https://github.com/Azure-Samples/azure-sql-db-python-rest-api.
 There will be some differences to the original.
 
 ## Create resource group and SQL server
@@ -107,7 +107,7 @@ If you want to check
 
 ### Push from local repository to Azure
 - In VS Code terminal, go to the folder where your local repo for this project is
-- git remote add azure https://az-webapp-api-tutorial@tutorial-flask-api.scm.azurewebsites.net/tutorial-flask-api.git (this is the url you noted down earlier when creating the webapp)
+- git remote add azure <insert the url you noted down earlier when creating the webapp>
 - git push azure main:master (my git repo's main branch is called main. If yours is called master: git push azure master)
 
 
