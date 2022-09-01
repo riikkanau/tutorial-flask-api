@@ -13,7 +13,6 @@ from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.trace.samplers import ProbabilitySampler
 import logging
 
-
 # # ---
 # loggeri= logging.getLogger(__name__)
 # loggeri.setLevel(logging.DEBUG) #logging.WARNING
@@ -38,8 +37,8 @@ if 'APPINSIGHTS_KEY' in os.environ:
 
 # Setup Flask Restful framework
 api = Api(app)
-parser = reqparse.RequestParser()
-parser.add_argument('customer')
+# parser = reqparse.RequestParser()
+# parser.add_argument('customer')
 
 # Implement singleton to avoid global objects
 class ConnectionManager(object):    
@@ -145,5 +144,5 @@ api.add_resource(Customers, '/customers')
 
 
 # remember to move before moving to production
-# if __name__ == '__main__':
-#     app.run(debug = True)
+if __name__ == '__main__':
+     app.run(debug = True)
