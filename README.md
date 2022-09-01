@@ -62,6 +62,8 @@ Add environmental variables
 - conda env config vars list (to check them out)
 - You can remove vars, e.g.: conda env config vars unset FLASK_ENV
 
+Update 1.9.2022: Set up .env file instead (https://medium.com/thedevproject/start-using-env-for-your-flask-project-and-stop-using-environment-variables-for-development-247dc12468be). Note that in SQLAZURECONNSTR_WWIF -variable the password in the connection string is without "" around it.
+
 Visual Code
 To run the app: go to the folder where the app.py is, enter
 - flask run
@@ -71,11 +73,11 @@ Test with another cmd: curl -X GET http://localhost:5000/customer/123 or set up 
 ### Debugging with VS Code
 Only the get and delete worked without changes (though the database integrity constraints prevent deleting customers with e.g. invoices and all existing customers have invoices, so if you only want to operate via this API, you need to create a new customer to be able to test delete). 
 
-Set up debugging: https://towardsdatascience.com/how-to-debug-flask-applications-in-vs-code-c65c9bdbef21
-
 Edited put and patch in app.py, as flask-restful requestparser caused errors that I was not able to workaround. Finally ended up removing requestparser and instead got the json from Flask's request-object.
+For me the cUrl examples for put and patch (that included 'customer= ) did not work. With Postman all was ok and I could validate the json body with https://jsonlint.com/.
 
-Test all request with e.g. Postman. For me the cUrl samples for put and patch (that included 'customer= ) did not work. With Postman all was ok and I could validate the json body with https://jsonlint.com/.
+Set up debugging: https://towardsdatascience.com/how-to-debug-flask-applications-in-vs-code-c65c9bdbef21 with the difference that FLASK_ENV' is deprecated and will not be used in Flask 2.3. Used 'FLASK_DEBUG=True' instead.
+The environment variables broke, so I replaced them with .env file and gave the  
 
 ## Deploy the App to Azure
 I followed the tutorial and deployed from local git repo instead of doing the deployment directly from Github.

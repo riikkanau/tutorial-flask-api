@@ -55,7 +55,6 @@ class ConnectionManager(object):
         if (self.__connection == None):
             application_name = ";APP={0}".format(socket.gethostname())  
             self.__connection = pyodbc.connect(os.environ['SQLAZURECONNSTR_WWIF'] + application_name)                  
-        
         return self.__connection
 
     def __removeConnection(self):
