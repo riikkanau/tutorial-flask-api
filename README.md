@@ -2,10 +2,6 @@
 Practising API creation by following tutorial at: https://github.com/Azure-Samples/azure-sql-db-python-rest-api.
 There will be some differences to the original.
 
-For the moment, you can find the endpoints live: 
-- https://tutorial-flask-api.azurewebsites.net/customers
-- https://tutorial-flask-api.azurewebsites.net/customer/{id}
-
 ## Create resource group and SQL server
 - az group create -n rg-wwimporters -l westeurope 
 - az sql server create -g rg-wwimporters -n sql-wwimporters -u adm-sql-wwimporters -p SetYourPwHere
